@@ -63,6 +63,14 @@ public class FooterActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(i);
+            }
+        });
     }
 
 }
