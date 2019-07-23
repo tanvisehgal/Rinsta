@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/usernameAbovePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="username1" />
+
+    <TextView
+        android:id="@+id/timeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="2:37pm" />
+
+    <ImageView
+        android:id="@+id/post"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:gravity="center_horizontal"
+        android:src="@drawable/dogpic1" />
+
+    <ImageView
+        android:id="@+id/heartImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/post"
+        android:gravity="center_vertical"
+        android:maxWidth="20dp"
+        android:maxHeight="20dp"
+        android:src="@drawable/hearticon"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/numLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/post"
+        android:layout_toEndOf="@+id/heartImage"
+        android:gravity="center_vertical"
+        android:text="100"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/likesText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/post"
+        android:layout_toEndOf="@+id/numLikes"
+        android:gravity="center_vertical"
+        android:text=" likes" />
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/numComments"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/heartImage"
+        android:text="27 comments"
+        android:layout_alignStart="@+id/numLikes"
+        android:gravity="center_vertical"/>
+
+</RelativeLayout>

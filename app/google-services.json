@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "918337742715",
+    "firebase_url": "https://rinsta-12f4a.firebaseio.com",
+    "project_id": "rinsta-12f4a",
+    "storage_bucket": "rinsta-12f4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918337742715:android:b808bf6d05f5d81a",
+        "android_client_info": {
+          "package_name": "com.example.rinsta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918337742715-8dv5n1nb8blph0it2qo7d7qhv6g23st2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rinsta",
+            "certificate_hash": "b87988afc4eb15849b278995b2578c52864061b7"
+          }
+        },
+        {
+          "client_id": "918337742715-eoa0j99or24ec3ie5plibeiv3q054j6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmgb7nRFQDiLSJT3lCwzvrKVQvmExCchc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918337742715-eoa0j99or24ec3ie5plibeiv3q054j6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
