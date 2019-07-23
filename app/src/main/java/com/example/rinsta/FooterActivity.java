@@ -3,8 +3,8 @@ package com.example.rinsta;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -21,6 +21,9 @@ public class FooterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_footer);
 
+    }
+
+    public void setFooter() {
         homeButton = findViewById(R.id.homeButton);
         searchButton = findViewById(R.id.searchButton);
         cameraButton = findViewById(R.id.cameraButton);
@@ -52,11 +55,14 @@ public class FooterActivity extends AppCompatActivity {
         });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                Log.d("profilebutton", "prof button clicked");
                 Intent i = new Intent(FooterActivity.this, ProfileActivity.class);
                 startActivity(i);
             }
         });
     }
+
 }

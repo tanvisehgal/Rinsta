@@ -10,5 +10,6 @@ public class SearchActivity extends FooterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        setFooter();
     }
 }
