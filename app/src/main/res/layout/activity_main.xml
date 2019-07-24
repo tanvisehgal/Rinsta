@@ -22,14 +22,13 @@
         android:paddingBottom="50dp"/>
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Username or email address"
-        android:inputType="textEmailAddress|text"
+        android:hint="email address"
+        android:inputType="textEmailAddress"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:textColor="@android:color/white"/>
+        android:layout_marginBottom="20dp" />
 
     <EditText
         android:id="@+id/password"
@@ -37,7 +36,6 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
         android:layout_gravity="center"/>
 
     <Button

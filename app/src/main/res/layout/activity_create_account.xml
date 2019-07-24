@@ -22,20 +22,12 @@
         android:paddingBottom="50dp"/>
 
     <EditText
-        android:id="@+id/usernameCA"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:layout_gravity="center"/>
-
-    <EditText
         android:id="@+id/emailCA"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Email address"
         android:inputType="textEmailAddress|text"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"/>
+        android:layout_gravity="center" />
 
     <EditText
         android:id="@+id/passwordCA"
@@ -43,16 +35,6 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center"/>
-
-    <EditText
-        android:id="@+id/reenterPasswordCA"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Reenter Password"
-        android:inputType="textPassword"
-        android:textColor="@android:color/white"
         android:layout_gravity="center"/>
 
     <Button
@@ -70,7 +52,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
         android:layout_marginTop="45dp">
 
         <TextView

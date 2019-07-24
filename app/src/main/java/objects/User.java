@@ -6,15 +6,15 @@ public class User extends UserBasic {
     private int numFollowers;
     private int numFollowing;
     private String description;
-    private List<Post> posts;
+    //private List<Post> posts;
 
     public User(int profilePic, String username, int numFollowers, int numFollowing,
-                String description, List<Post> posts) {
+                String description) {
         super(profilePic, username);
         this.numFollowers = numFollowers;
         this.numFollowing = numFollowing;
         this.description = description;
-        this.posts = posts;
+        //this.posts = posts;
     }
 
     public int getNumFollowers() {
@@ -41,11 +41,11 @@ public class User extends UserBasic {
         this.description = description;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
+//    public List<Post> getPosts() {
+//        return posts;
+//    }
+//
+//    public void setPosts(List<Post> posts) {
+//        this.posts = posts;
+//    }
 }

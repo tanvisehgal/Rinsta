@@ -1,20 +1,20 @@
 package objects;
 
 public class UserBasic {
-    private int profilePic;
+    private int profilepic;
     private String username;
 
-    public UserBasic(int profilePic, String username) {
-        this.profilePic = profilePic;
+    public UserBasic(int profilepic, String username) {
+        this.profilepic = profilepic;
         this.username = username;
     }
 
     public int getProfilePic() {
-        return profilePic;
+        return profilepic;
     }
 
-    public void setProfilePic(int profilePic) {
-        this.profilePic = profilePic;
+    public void setProfilePic(int profilepic) {
+        this.profilepic = profilepic;
     }
 
     public String getUsername() {

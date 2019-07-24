@@ -13,10 +13,13 @@
     <RelativeLayout
         android:layout_above="@+id/footer"
         android:layout_below="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
 
         <ListView
+            android:layout_centerHorizontal="true"
             android:id="@+id/imagesListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
