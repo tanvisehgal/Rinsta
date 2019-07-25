@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import objects.User;
+import utils.StringManipulation;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -90,23 +91,14 @@ public class CreateAccountActivity extends AppCompatActivity {
     private void setNewUserSettings() {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef =  fbDatabase.getReference();
-        String username = extractUsername(emailData);
+        String username = new StringManipulation().extractUsername(emailData);
         User newUser = new User(R.drawable.blankprofile, username, 0, 0, "");
         Log.d("add", "new user added to db");
-        myRef.child("user_settings").child(username).push().setValue(newUser);
+        myRef.child("user_settings").child(username).setValue(newUser);
     }
 
 
-    private String extractUsername(String email) {
-        StringBuilder username = new StringBuilder();
-        for (int i = 0; i < email.length(); i++) {
-            if (email.charAt(i) == '@') {
-                break;
-            }
-            username.append(email.charAt(i));
-        }
-        return username.toString();
-    }
+
 
     private void updateUI(FirebaseUser user) {
 

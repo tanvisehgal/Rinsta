@@ -1,6 +1,7 @@
 package objects;
 
 public class Post {
+  //  private int postId;
     private int imageId;
     private int numLikes;
     private int numComments;
@@ -8,8 +9,12 @@ public class Post {
     private UserBasic user;
     private String caption;
 
-    public Post(int imageId, int numLikes, int numComments, int timeStamp, UserBasic user,
-                String caption) {
+    public Post() {
+
+    }
+
+    public Post(int imageId, int numLikes, int numComments, int timeStamp, UserBasic user, String caption) {
+   //     this.postId = postId;
         this.imageId = imageId;
         this.numLikes = numLikes;
         this.numComments = numComments;
@@ -17,6 +22,7 @@ public class Post {
         this.user = user;
         this.caption = caption;
     }
+
 
     public int getImageId() {
         return imageId;
@@ -26,24 +32,24 @@ public class Post {
         this.imageId = imageId;
     }
 
-    public String getNumLikes() {
-        return Integer.toString(numLikes);
+    public int getNumLikes() {
+        return numLikes;
     }
 
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
     }
 
-    public String getNumComments() {
-        return numComments + "comments";
+    public int getNumComments() {
+        return numComments;
     }
 
     public void setNumComments(int numComments) {
         this.numComments = numComments;
     }
 
-    public String getTimeStamp() {
-        return Integer.toString(timeStamp);
+    public int getTimeStamp() {
+        return timeStamp;
     }
 
     public void setTimeStamp(int timeStamp) {

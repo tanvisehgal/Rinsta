@@ -8,6 +8,10 @@ public class User extends UserBasic {
     private String description;
     //private List<Post> posts;
 
+    public User() {
+
+    }
+
     public User(int profilePic, String username, int numFollowers, int numFollowing,
                 String description) {
         super(profilePic, username);

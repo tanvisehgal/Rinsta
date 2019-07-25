@@ -4,6 +4,10 @@ public class UserBasic {
     private int profilepic;
     private String username;
 
+    public UserBasic() {
+
+    }
+
     public UserBasic(int profilepic, String username) {
         this.profilepic = profilepic;
         this.username = username;
