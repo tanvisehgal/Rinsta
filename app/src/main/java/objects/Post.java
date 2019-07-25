@@ -2,34 +2,33 @@ package objects;
 
 public class Post {
   //  private int postId;
-    private int imageId;
+    private int imageid;
     private int numLikes;
     private int numComments;
-    private int timeStamp;
-    private UserBasic user;
+    private int timestamp;
+    private String username;
+    //private UserBasic user;
     private String caption;
 
     public Post() {
 
     }
 
-    public Post(int imageId, int numLikes, int numComments, int timeStamp, UserBasic user, String caption) {
-   //     this.postId = postId;
-        this.imageId = imageId;
+    public Post(int imageid, int numLikes, int numComments, int timestamp, String username, String caption) {
+        this.imageid = imageid;
         this.numLikes = numLikes;
         this.numComments = numComments;
-        this.timeStamp = timeStamp;
-        this.user = user;
+        this.timestamp = timestamp;
+        this.username = username;
         this.caption = caption;
     }
 
-
-    public int getImageId() {
-        return imageId;
+    public int getImageid() {
+        return imageid;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageid(int imageid) {
+        this.imageid = imageid;
     }
 
     public int getNumLikes() {
@@ -48,20 +47,20 @@ public class Post {
         this.numComments = numComments;
     }
 
-    public int getTimeStamp() {
-        return timeStamp;
+    public int getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(int timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public UserBasic getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(UserBasic user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCaption() {

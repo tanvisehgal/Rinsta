@@ -38,13 +38,13 @@ public class HomeScreenActivity extends FooterActivity {
     }
 
     private void populateList() {
-        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic4, 100, 3,
-                430, new UserBasic(R.drawable.profpic, "tanvi"), "ocean")));
-        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic1, 85, 1,
-                420, new UserBasic(R.drawable.profpic, "sehgal"), "dog")));
-        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic2, 2, 3,
-                430, new UserBasic(R.drawable.profpic, "ts"), "dogzzz")));
-        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic3, 2, 1,
-                420, new UserBasic(R.drawable.profpic, "tsehgal"), "d")));
+//        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic4, 100, 3,
+//                430, new UserBasic(R.drawable.profpic, "tanvi"), "ocean")));
+//        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic1, 85, 1,
+//                420, new UserBasic(R.drawable.profpic, "sehgal"), "dog")));
+//        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic2, 2, 3,
+//                430, new UserBasic(R.drawable.profpic, "ts"), "dogzzz")));
+//        allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic3, 2, 1,
+//                420, new UserBasic(R.drawable.profpic, "tsehgal"), "d")));
     }
 }

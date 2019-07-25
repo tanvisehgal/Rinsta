@@ -58,11 +58,11 @@ public class CustomPostsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)view.getTag();
         }
         Post currPost = allPosts.get(i).getPost();
-        viewHolder.post.setImageResource(currPost.getImageId());
-        viewHolder.username.setText(currPost.getUser().getUsername());
-        viewHolder.likes.setText(currPost.getNumLikes());
-        viewHolder.comments.setText(currPost.getNumComments());
-        viewHolder.time.setText(currPost.getTimeStamp());
+        viewHolder.post.setImageResource(currPost.getImageid());
+        viewHolder.username.setText(currPost.getUsername());
+        viewHolder.likes.setText(Integer.toString(currPost.getNumLikes()));
+        viewHolder.comments.setText(Integer.toString(currPost.getNumComments()));
+        viewHolder.time.setText(Integer.toString(currPost.getTimestamp()));
 
         return view;
     }

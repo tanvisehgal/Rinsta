@@ -1,6 +1,7 @@
 package com.example.rinsta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +35,13 @@ public class ProfileActivity extends FooterActivity {
     private ArrayList<PostsAdapterItem> allMyPosts = new ArrayList<>();
 
     private TextView numFollowers, numFollowing, username, bio;
+    private String usernameString;
     private ImageView profPic;
 
     //database
     private FirebaseDatabase fbDatabase;
     private DatabaseReference myRef;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,10 @@ public class ProfileActivity extends FooterActivity {
 
 
         populateList();
-        CustomPostsAdapter myAdapter = new CustomPostsAdapter(this, allMyPosts);
-        listView.setAdapter(myAdapter);
+
+
+
+
     }
 
     private void initializeWidgets() {
@@ -60,14 +66,14 @@ public class ProfileActivity extends FooterActivity {
         username = findViewById(R.id.usernamePS);
         bio = findViewById(R.id.userDescriptionPS);
         profPic = findViewById(R.id.profPicPS);
-    }
-    private void updateProfile() {
         fbDatabase = FirebaseDatabase.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String usernameFromUser = new StringManipulation().extractUsername(user.getEmail());
-        myRef = fbDatabase.getReference().child("user_settings").child(usernameFromUser);
+        myRef = fbDatabase.getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        usernameString = new StringManipulation().extractUsername(user.getEmail());
+    }
 
-        myRef.addValueEventListener(new ValueEventListener() {
+    private void updateProfile() {
+        myRef.child("user_settings").child(usernameString).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User userInfo = dataSnapshot.getValue(User.class);
@@ -88,14 +94,49 @@ public class ProfileActivity extends FooterActivity {
     }
 
     private void populateList() {
-        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic4, 100, 3,
-                430, new UserBasic(R.drawable.profpic, "tanvisiz"), "ocean")));
-        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic1, 85, 1,
-                420, new UserBasic(R.drawable.profpic, "tanvisiz"), "dog")));
-        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic2, 2, 3,
-                430, new UserBasic(R.drawable.profpic, "tanvisiz"), "dogzzz")));
-        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic3, 2, 1,
-                420, new UserBasic(R.drawable.profpic, "tanvisiz"), "d")));
+        myRef.child("post").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Post post = dataSnapshot.getValue(Post.class);
+                post.setImageid(R.drawable.dogpic1);
+                allMyPosts.add(new PostsAdapterItem(post));
+                CustomPostsAdapter myAdapter = new CustomPostsAdapter(getApplicationContext(), allMyPosts);
+                listView.setAdapter(myAdapter);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic4, 100, 3,
+//                430, "tanvisiz", "cap")));
+//
+//        CustomPostsAdapter myAdapter = new CustomPostsAdapter(this, allMyPosts);
+//        listView.setAdapter(myAdapter);
+
+//        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic1, 85, 1,
+//                420, new UserBasic(R.drawable.profpic, "tanvisiz"), "dog")));
+//        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic2, 2, 3,
+//                430, new UserBasic(R.drawable.profpic, "tanvisiz"), "dogzzz")));
+//        allMyPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic3, 2, 1,
+//                420, new UserBasic(R.drawable.profpic, "tanvisiz"), "d")));
 
     }
 }

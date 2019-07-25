@@ -49,7 +49,7 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/profpic" />
+            android:src="@drawable/blankprofile" />
 
         <TextView
             android:id="@+id/usernamePS"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/profPicPS"
             android:layout_centerHorizontal="true"
-            android:text="tanvisiz" />
+            android:text="user" />
 
         <TextView
             android:id="@+id/userDescriptionPS"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/usernamePS"
             android:layout_centerHorizontal="true"
-            android:text="Welcome!!" />
+            android:text="Bio" />
 
         <TextView
             android:id="@+id/followingText"
@@ -76,7 +76,7 @@
             android:layout_marginEnd="20dp"
             android:layout_toStartOf="@+id/profPicPS"
             android:clickable="true"
-            android:text="Following: 100" />
+            android:text="Following: 0" />
 
         <TextView
             android:id="@+id/followersText"
@@ -87,7 +87,7 @@
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/profPicPS"
             android:clickable="true"
-            android:text="Followers: 92" />
+            android:text="Followers: 0" />
 
 
     </RelativeLayout>
@@ -95,7 +95,7 @@
     <RelativeLayout
         android:id="@+id/profileFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/footer"
         android:layout_below="@+id/profileScreenInfo">
 
