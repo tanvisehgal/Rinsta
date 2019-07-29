@@ -81,9 +81,9 @@ public class ProfileActivity extends FooterActivity {
                 String followingText = "Following: " + userInfo.getNumFollowing();
                 numFollowers.setText(followersText);
                 numFollowing.setText(followingText);
-                username.setText(userInfo.getUsername());
-                bio.setText(userInfo.getDescription());
-                profPic.setImageResource(userInfo.getProfilePic());
+//                username.setText(userInfo.getUsername());
+//                bio.setText(userInfo.getDescription());
+//                profPic.setImageResource(userInfo.getProfilePic());
             }
 
             @Override

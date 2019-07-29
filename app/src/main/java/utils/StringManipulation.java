@@ -12,4 +12,14 @@ public class StringManipulation {
         }
         return username.toString();
     }
+
+    public String removeSpecialChar(String s) {
+        StringBuilder edited = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '@' && s.charAt(i) != '.') {
+                edited.append(s.charAt(i));
+            }
+        }
+        return edited.toString();
+    }
 }

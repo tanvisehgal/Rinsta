@@ -51,6 +51,7 @@ public class CustomPostsAdapter extends BaseAdapter {
             viewHolder.likes = view.findViewById(R.id.numLikes);
             viewHolder.comments = view.findViewById(R.id.numComments);
             viewHolder.time = view.findViewById(R.id.timeStamp);
+            viewHolder.caption = view.findViewById(R.id.caption);
 
             view.setTag(viewHolder);
         }
@@ -59,10 +60,11 @@ public class CustomPostsAdapter extends BaseAdapter {
         }
         Post currPost = allPosts.get(i).getPost();
         viewHolder.post.setImageResource(currPost.getImageid());
-        viewHolder.username.setText(currPost.getUsername());
+        viewHolder.username.setText(new StringManipulation().extractUsername(currPost.getEmail()));
         viewHolder.likes.setText(Integer.toString(currPost.getNumLikes()));
         viewHolder.comments.setText(Integer.toString(currPost.getNumComments()));
-        viewHolder.time.setText(Integer.toString(currPost.getTimestamp()));
+        viewHolder.time.setText(Integer.toString(currPost.getTimeStamp()));
+        viewHolder.caption.setText(currPost.getCaption());
 
         return view;
     }
@@ -73,5 +75,6 @@ public class CustomPostsAdapter extends BaseAdapter {
         TextView time;
         TextView likes;
         TextView comments;
+        TextView caption;
     }
 }

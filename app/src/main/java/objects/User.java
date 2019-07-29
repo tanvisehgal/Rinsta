@@ -12,9 +12,9 @@ public class User extends UserBasic {
 
     }
 
-    public User(int profilePic, String username, int numFollowers, int numFollowing,
+    public User(int profilePic, String email, int numFollowers, int numFollowing,
                 String description) {
-        super(profilePic, username);
+        super(profilePic, email);
         this.numFollowers = numFollowers;
         this.numFollowing = numFollowing;
         this.description = description;

@@ -69,7 +69,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                                     setNewUserSettings();
                                     Intent i = new Intent(CreateAccountActivity.this,
-                                            HomeScreenActivity.class);
+                                            HomeActivity.class);
                                     startActivity(i);
                                 }else{
                                     Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
@@ -91,11 +91,11 @@ public class CreateAccountActivity extends AppCompatActivity {
     private void setNewUserSettings() {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef =  fbDatabase.getReference();
-        String username = new StringManipulation().extractUsername(emailData);
-        User newUser = new User(R.drawable.blankprofile, username, 0, 0, "");
+        User newUser = new User(R.drawable.blankprofile, emailData, 0, 0, "");
         Log.d("add", "new user added to db");
-        myRef.child("user_settings").child(username).setValue(newUser);
+        myRef.child("user_settings").child(new StringManipulation().removeSpecialChar(emailData)).setValue(newUser);
     }
+
 
 
 

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent i = new Intent(MainActivity.this, HomeScreenActivity.class);
+                                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
                                     startActivity(i);
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException()

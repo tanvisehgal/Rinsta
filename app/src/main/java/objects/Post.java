@@ -5,8 +5,8 @@ public class Post {
     private int imageid;
     private int numLikes;
     private int numComments;
-    private int timestamp;
-    private String username;
+    private int timeStamp;
+    private String email;
     //private UserBasic user;
     private String caption;
 
@@ -14,12 +14,12 @@ public class Post {
 
     }
 
-    public Post(int imageid, int numLikes, int numComments, int timestamp, String username, String caption) {
+    public Post(int imageid, int numLikes, int numComments, int timeStamp, String email, String caption) {
         this.imageid = imageid;
         this.numLikes = numLikes;
         this.numComments = numComments;
-        this.timestamp = timestamp;
-        this.username = username;
+        this.timeStamp = timeStamp;
+        this.email = email;
         this.caption = caption;
     }
 
@@ -47,20 +47,20 @@ public class Post {
         this.numComments = numComments;
     }
 
-    public int getTimestamp() {
-        return timestamp;
+    public int getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
+    public void setTimeStamp(int timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCaption() {

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+
+    <RelativeLayout
+        android:id="@+id/profileFragmentHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/profileFragmentProfPic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/blankprofile" />
+
+        <TextView
+            android:id="@+id/profileFragmentUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profileFragmentProfPic"
+            android:text="user" />
+
+        <TextView
+            android:id="@+id/profileFragmentBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profileFragmentProfPic"
+            android:layout_toEndOf="@+id/profileFragmentProfPic"
+            android:text="Bio" />
+
+        <TextView
+            android:id="@+id/profileFragmentFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/profileFragmentProfPic"
+            android:clickable="true"
+            android:text="Following " />
+
+        <TextView
+            android:id="@+id/profileFragmentFollowingCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/profileFragmentFollowing"
+            android:clickable="true"
+            android:text="0"/>
+
+        <TextView
+            android:id="@+id/profileFragmentFollowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/profileFragmentProfPic"
+            android:layout_below="@+id/profileFragmentFollowing"
+            android:clickable="true"
+            android:text="Followers " />
+
+        <TextView
+            android:id="@+id/profileFragmentFollowersCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/profileFragmentFollowers"
+            android:layout_below="@+id/profileFragmentFollowing"
+            android:clickable="true"
+            android:text="0"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/profileFragmentHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <ListView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/profileFragmentListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

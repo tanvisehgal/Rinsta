@@ -27,11 +27,19 @@
         android:gravity="center_horizontal"
         android:src="@drawable/dogpic1" />
 
+    <TextView
+        android:id="@+id/caption"
+        android:text="caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/post"
+        android:layout_below="@+id/post"/>
+
     <ImageView
         android:id="@+id/heartImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/post"
+        android:layout_below="@+id/caption"
         android:gravity="center_vertical"
         android:maxWidth="20dp"
         android:maxHeight="20dp"
@@ -42,7 +50,7 @@
         android:id="@+id/numLikes"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_below="@+id/post"
+        android:layout_below="@+id/caption"
         android:layout_toEndOf="@+id/heartImage"
         android:gravity="center_vertical"
         android:text="100"
@@ -52,7 +60,7 @@
         android:id="@+id/likesText"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_below="@+id/post"
+        android:layout_below="@+id/caption"
         android:layout_toEndOf="@+id/numLikes"
         android:gravity="center_vertical"
         android:text=" likes" />
@@ -66,5 +74,7 @@
         android:text="27 comments"
         android:layout_alignStart="@+id/numLikes"
         android:gravity="center_vertical"/>
+
+
 
 </RelativeLayout>
