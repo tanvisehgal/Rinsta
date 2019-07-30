@@ -22,4 +22,17 @@ public class StringManipulation {
         }
         return edited.toString();
     }
+
+    public String removeJpgFromEnd(String s) {
+        StringBuilder edited = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '.') {
+                break;
+            }
+            else {
+                edited.append(s.charAt(i));
+            }
+        }
+        return edited.toString();
+    }
 }

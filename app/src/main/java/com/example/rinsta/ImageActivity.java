@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import objects.Post;
+import utils.StringManipulation;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
@@ -76,7 +77,6 @@ public class ImageActivity extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 uploadImageToStorage();
 
             }
@@ -84,7 +84,6 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void uploadImageToStorage() {
-        Log.d("filezz", "uploadtostoarge method: " +f.getName());
         StorageReference filepath = storageRootRef.child("Images").child(f.getName());
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -103,13 +102,6 @@ public class ImageActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                String imageId = f.getAbsolutePath();
-//                long timestamp = taskSnapshot.getMetadata().getUpdatedTimeMillis();
-//                String email = user.getEmail();
-//                String caption = editTextCaption.getText().toString();
-//
-//                Post post = new Post(imageId, 0, 0, timestamp, email, caption);
-//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 addToFirebaseDB();
             }
         });
@@ -117,9 +109,9 @@ public class ImageActivity extends AppCompatActivity {
 
     private void addToFirebaseDB() {
         String caption = editTextCaption.getText().toString();
-
+        String imageid = new StringManipulation().removeJpgFromEnd(f.getName());
         Post post = new Post(f.getName(), 0, 0, timeStamp, user.getEmail(), caption);
-        myRef.child("post").child(f.getName()).setValue(post);
+        myRef.child("post").child(imageid).setValue(post);
 
     }
 
@@ -133,9 +125,6 @@ public class ImageActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        Log.d("filezz", "imagefilename: " + imageFileName);
-        Log.d("filezz", "getname: " + image.getName());
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
