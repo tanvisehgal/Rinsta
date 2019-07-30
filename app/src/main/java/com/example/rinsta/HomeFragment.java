@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
-                post.setImageid(R.drawable.dogpic2);
+              //  post.setImageid(R.drawable.dogpic2);
                 Log.d("following", "post: " + post.getCaption());
                 allPosts.add(new PostsAdapterItem(post));
                 Log.d("following", "allPosts size: " + allPosts.size());

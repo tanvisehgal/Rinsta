@@ -46,6 +46,8 @@ public class ImageActivity extends AppCompatActivity {
     File f;
     EditText editTextCaption;
 
+    String timeStamp;
+
     // firebase
     //database
     private DatabaseReference myRef;
@@ -76,12 +78,14 @@ public class ImageActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 uploadImageToStorage();
+
             }
         });
     }
 
     private void uploadImageToStorage() {
-        StorageReference filepath = storageRootRef.child("Images");
+        Log.d("filezz", "uploadtostoarge method: " +f.getName());
+        StorageReference filepath = storageRootRef.child("Images").child(f.getName());
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -106,19 +110,22 @@ public class ImageActivity extends AppCompatActivity {
 //
 //                Post post = new Post(imageId, 0, 0, timestamp, email, caption);
 //                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                addToFirebaseDB();
+                addToFirebaseDB();
             }
         });
     }
 
     private void addToFirebaseDB() {
-        Post post = new Post();
+        String caption = editTextCaption.getText().toString();
+
+        Post post = new Post(f.getName(), 0, 0, timeStamp, user.getEmail(), caption);
+        myRef.child("post").child(f.getName()).setValue(post);
 
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
@@ -126,8 +133,8 @@ public class ImageActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        Log.d("file", imageFileName);
-        Log.d("file", image.getName());
+        Log.d("filezz", "imagefilename: " + imageFileName);
+        Log.d("filezz", "getname: " + image.getName());
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
