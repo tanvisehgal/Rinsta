@@ -2,7 +2,7 @@ package utils;
 
 import objects.Post;
 
-public class PostsAdapterItem implements Comparable<PostsAdapterItem> {
+public class PostsAdapterItem {
     private Post post;
 
     public PostsAdapterItem(Post post) {
@@ -17,8 +17,4 @@ public class PostsAdapterItem implements Comparable<PostsAdapterItem> {
         this.post = post;
     }
 
-    @Override
-    public int compareTo(PostsAdapterItem postsAdapterItem) {
-        return this.post.getTimeStamp() - postsAdapterItem.getPost().getTimeStamp();
-    }
 }

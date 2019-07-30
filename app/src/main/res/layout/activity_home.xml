@@ -7,16 +7,16 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
     <androidx.viewpager.widget.ViewPager
@@ -31,5 +31,6 @@
             android:layout_gravity="top" />
 
     </androidx.viewpager.widget.ViewPager>
+
 
 </LinearLayout>

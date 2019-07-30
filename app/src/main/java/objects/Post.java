@@ -1,20 +1,18 @@
 package objects;
 
 public class Post {
-  //  private int postId;
-    private int imageid;
+    private String imageid;
     private int numLikes;
     private int numComments;
-    private int timeStamp;
+    private String timeStamp;
     private String email;
-    //private UserBasic user;
     private String caption;
 
     public Post() {
 
     }
 
-    public Post(int imageid, int numLikes, int numComments, int timeStamp, String email, String caption) {
+    public Post(String imageid, int numLikes, int numComments, String timeStamp, String email, String caption) {
         this.imageid = imageid;
         this.numLikes = numLikes;
         this.numComments = numComments;
@@ -23,11 +21,11 @@ public class Post {
         this.caption = caption;
     }
 
-    public int getImageid() {
+    public String getImageid() {
         return imageid;
     }
 
-    public void setImageid(int imageid) {
+    public void setImageid(String imageid) {
         this.imageid = imageid;
     }
 
@@ -47,11 +45,11 @@ public class Post {
         this.numComments = numComments;
     }
 
-    public int getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(int timeStamp) {
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 

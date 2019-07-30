@@ -1,6 +1,7 @@
 package com.example.rinsta;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -24,6 +25,8 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
+
+
 
 //        tabLayout.addTab(tabLayout.newTab().setText("Notifications"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Activity"));

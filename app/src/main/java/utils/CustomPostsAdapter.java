@@ -7,7 +7,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.example.rinsta.R;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -59,15 +65,22 @@ public class CustomPostsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)view.getTag();
         }
         Post currPost = allPosts.get(i).getPost();
-        viewHolder.post.setImageResource(currPost.getImageid());
         viewHolder.username.setText(new StringManipulation().extractUsername(currPost.getEmail()));
         viewHolder.likes.setText(Integer.toString(currPost.getNumLikes()));
         viewHolder.comments.setText(Integer.toString(currPost.getNumComments()));
-        viewHolder.time.setText(Integer.toString(currPost.getTimeStamp()));
+        viewHolder.time.setText(" " + (currPost.getTimeStamp()));
         viewHolder.caption.setText(currPost.getCaption());
 
+       // viewHolder.post.setImageResource(currPost.getImageid());
+
+
+//        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("Images")
+//                .child(currPost.getImageid());
+//        Glide.with(context).load(storageRef).into(viewHolder.post);
         return view;
     }
+
+
 
     private static class ViewHolder {
         ImageView post;

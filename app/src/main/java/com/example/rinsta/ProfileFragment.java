@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post c = dataSnapshot.getValue(Post.class);
-                c.setImageid(R.drawable.dogpic3);
+                //c.setImageid(R.drawable.dogpic3);
                 allMyPosts.add(new PostsAdapterItem(c));
                 myAdapter.notifyDataSetChanged();
             }

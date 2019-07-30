@@ -2,12 +2,16 @@ package com.example.rinsta;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,10 +32,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import objects.Post;
 import utils.CustomPostsAdapter;
@@ -85,26 +93,10 @@ public class HomeFragment extends Fragment {
         addToFollowingList();
 
         Log.d("following", "size: " + following.size());
+        postImage();
 
         return view;
 
-    }
-
-    private void postImage() {
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dispatchTakePictureIntent();
-            }
-        });
-    }
-
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
     }
 
 
@@ -156,7 +148,7 @@ public class HomeFragment extends Fragment {
                 Log.d("following", "post: " + post.getCaption());
                 allPosts.add(new PostsAdapterItem(post));
                 Log.d("following", "allPosts size: " + allPosts.size());
-                Collections.sort(allPosts);
+               // Collections.sort(allPosts);
                 myAdapter.notifyDataSetChanged();
             }
 
@@ -182,7 +174,21 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    //allPosts.add(new PostsAdapterItem(new Post(R.drawable.dogpic1, 20, 10, 300, "tanvi", "my dog")));
+    // temporary - post images
+    private void postImage() {
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), ImageActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+
+
+
+
 
 
 }
