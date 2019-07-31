@@ -58,7 +58,7 @@
         android:gravity="center_horizontal"
         android:background="#000000"
         android:padding="1dp"
-        android:src="@drawable/dogpic1" />
+        android:src="@drawable/blankprofile" />
 
    <LinearLayout
        android:id="@+id/linearLayoutBelowPost"
@@ -71,12 +71,11 @@
            android:id="@+id/heartImage"
            android:layout_width="30dp"
            android:layout_height="30dp"
-           android:layout_below="@+id/post"
            android:gravity="center_vertical"
            android:maxWidth="20dp"
            android:maxHeight="20dp"
-           android:src="@drawable/hearticon"
-           android:clickable="true"/>
+           android:clickable="true"
+           android:src="@drawable/hearticon" />
 
        <TextView
            android:id="@+id/numLikes"

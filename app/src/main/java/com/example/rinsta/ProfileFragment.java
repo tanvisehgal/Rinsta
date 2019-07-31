@@ -78,6 +78,7 @@ public class ProfileFragment extends Fragment {
         myAdapter = new CustomPostsAdapter(getActivity(), allMyPosts);
         listView.setAdapter(myAdapter);
 
+        myAdapter.clear();
         populateList();
 
         updateProfile();
@@ -106,11 +107,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateList() {
-        myRef.child("post").orderByChild("email").equalTo(new StringManipulation().removeSpecialChar(user.getEmail())).addChildEventListener(new ChildEventListener() {
+        myRef.child("post").orderByChild("email").equalTo(new StringManipulation()
+                .removeSpecialChar(user.getEmail())).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post c = dataSnapshot.getValue(Post.class);
-                //c.setImageid(R.drawable.dogpic3);
                 allMyPosts.add(new PostsAdapterItem(c));
                 myAdapter.notifyDataSetChanged();
             }

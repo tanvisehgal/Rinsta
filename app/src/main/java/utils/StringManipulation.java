@@ -23,14 +23,14 @@ public class StringManipulation {
         return edited.toString();
     }
 
-    public String removeJpgFromEnd(String s) {
+    public String removeJpgFromEnd(String imgFile) {
         StringBuilder edited = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '.') {
+        for (int i = 0; i < imgFile.length(); i++) {
+            if (imgFile.charAt(i) == '.') {
                 break;
             }
             else {
-                edited.append(s.charAt(i));
+                edited.append(imgFile.charAt(i));
             }
         }
         return edited.toString();

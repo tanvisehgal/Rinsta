@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
     private ListView myListView;
     private String userIdentifier;
 
+    private ImageView likebutton;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Button postButton;
 
@@ -87,10 +89,12 @@ public class HomeFragment extends Fragment {
         userIdentifier = new StringManipulation().removeSpecialChar(user.getEmail());
         postButton = view.findViewById(R.id.postButton);
         storageRootRef = FirebaseStorage.getInstance().getReference();
+        likebutton = view.findViewById(R.id.heartImage);
 
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
         addToFollowingList();
+        addMyPosts();
 
         Log.d("following", "size: " + following.size());
         postImage();
@@ -99,9 +103,17 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void likeImage() {
+        likebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
 
     private void addToFollowingList() {
-
         Query myFollowing = myRef.child("following").child(userIdentifier);
         myFollowing.addChildEventListener(new ChildEventListener() {
             @Override
@@ -135,20 +147,52 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void addMyPosts() {
+        myRef.child("post").orderByChild("email").equalTo(userIdentifier).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Post post = dataSnapshot.getValue(Post.class);
+                Log.d("following", "my post caption: " + post.getCaption());
+                allPosts.add(new PostsAdapterItem(post));
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     private void addPosts(String userid) {
+        Log.d("following", "add posts userid: " + userid);
         Log.d("following", "addPosts called");
         Log.d("following", "addPosts size of following list: " + following.size());
+        Log.d("following", "useridentifier: " + userIdentifier);
+
         Query postsByUser = myRef.child("post").orderByChild("email").equalTo(userid);
         postsByUser.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
-              //  post.setImageid(R.drawable.dogpic2);
-                Log.d("following", "post: " + post.getCaption());
                 allPosts.add(new PostsAdapterItem(post));
+                Log.d("following", post.getCaption());
                 Log.d("following", "allPosts size: " + allPosts.size());
-               // Collections.sort(allPosts);
                 myAdapter.notifyDataSetChanged();
             }
 

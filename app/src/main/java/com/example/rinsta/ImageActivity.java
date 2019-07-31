@@ -78,7 +78,8 @@ public class ImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 uploadImageToStorage();
-
+                Intent i = new Intent(ImageActivity.this, HomeActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -110,7 +111,9 @@ public class ImageActivity extends AppCompatActivity {
     private void addToFirebaseDB() {
         String caption = editTextCaption.getText().toString();
         String imageid = new StringManipulation().removeJpgFromEnd(f.getName());
-        Post post = new Post(f.getName(), 0, 0, timeStamp, user.getEmail(), caption);
+        String userid = new StringManipulation().removeSpecialChar(user.getEmail());
+        Post post = new Post(f.getName(), 0, 0, timeStamp, userid,
+                caption);
         myRef.child("post").child(imageid).setValue(post);
 
     }
@@ -160,10 +163,10 @@ public class ImageActivity extends AppCompatActivity {
 //                    extras.putParcelable(MediaStore.EXTRA_OUTPUT, photoURI);
 //                }
 //                takePictureIntent.putExtras(extras);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-           // }
-        }
-  //  }
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        // }
+    }
+    //  }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
