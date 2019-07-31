@@ -91,7 +91,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private void setNewUserSettings() {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef =  fbDatabase.getReference();
-        User newUser = new User(R.drawable.blankprofile, emailData, 0, 0, "");
+        User newUser = new User("", emailData, 0, 0, "");
         Log.d("add", "new user added to db");
         myRef.child("user_settings").child(new StringManipulation().removeSpecialChar(emailData)).setValue(newUser);
     }

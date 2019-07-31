@@ -12,7 +12,7 @@ public class User extends UserBasic {
 
     }
 
-    public User(int profilePic, String email, int numFollowers, int numFollowing,
+    public User(String profilePic, String email, int numFollowers, int numFollowing,
                 String description) {
         super(profilePic, email);
         this.numFollowers = numFollowers;

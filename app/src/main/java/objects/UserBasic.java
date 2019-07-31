@@ -1,31 +1,31 @@
 package objects;
 
 public class UserBasic {
-    private int profilepic;
-    private String username;
+    private String profilepic;
+    private String email;
 
     public UserBasic() {
 
     }
 
-    public UserBasic(int profilepic, String username) {
+    public UserBasic(String profilepic, String email) {
         this.profilepic = profilepic;
-        this.username = username;
+        this.email = email;
     }
 
-    public int getProfilepic() {
+    public String getProfilepic() {
         return profilepic;
     }
 
-    public void setProfilepic(int profilepic) {
+    public void setProfilepic(String profilepic) {
         this.profilepic = profilepic;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

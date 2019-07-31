@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,11 +56,11 @@ public class CustomPostsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
 
         if (view == null) {
@@ -93,7 +94,7 @@ public class CustomPostsAdapter extends BaseAdapter {
 
         Log.d("name", currPost.getImageid());
 
-        StorageReference myRef = storageReference.child("Images").child(currPost.getImageid());
+        final StorageReference myRef = storageReference.child("Images").child(currPost.getImageid());
 
         final long ONE_MEGABYTE = 1024 * 1024;
         myRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -112,8 +113,10 @@ public class CustomPostsAdapter extends BaseAdapter {
         viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("following", "desc: " + view.findViewById(R.id.numLikes).toString());
-               Log.d("following", "description: " + view.findViewById(R.id.numLikes).getContentDescription().toString());
+                int newLikes = currPost.getNumLikes() + 1;
+                dbRef.child("post").child(new StringManipulation().removeJpgFromEnd(currPost
+                        .getImageid())).child("numLikes").setValue(newLikes);
+
             }
         });
 

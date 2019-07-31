@@ -96,7 +96,8 @@ public class ProfileFragment extends Fragment {
                 numFollowers.setText(Integer.toString(userInfo.getNumFollowers()));
                 username.setText(new StringManipulation().extractUsername(userInfo.getEmail()));
                 bio.setText(userInfo.getDescription());
-                profPic.setImageResource(userInfo.getProfilepic());
+              //  profPic.setImageResource(userInfo.getProfilepic());
+
             }
 
             @Override
