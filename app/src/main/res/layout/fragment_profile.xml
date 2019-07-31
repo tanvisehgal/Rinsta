@@ -8,60 +8,77 @@
     <RelativeLayout
         android:id="@+id/profileFragmentHeader"
         android:layout_width="match_parent"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/profileFragmentProfPic"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/blankprofile" />
 
         <TextView
             android:id="@+id/profileFragmentUsername"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profileFragmentProfPic"
-            android:text="user" />
+            android:layout_height="25dp"
+            android:layout_toRightOf="@+id/profileFragmentProfPic"
+            android:text="user"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/profileFragmentBio"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profileFragmentProfPic"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/profileFragmentUsername"
             android:layout_toEndOf="@+id/profileFragmentProfPic"
             android:text="Bio" />
 
         <TextView
             android:id="@+id/profileFragmentFollowing"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/profileFragmentProfPic"
-            android:clickable="true"
+            android:layout_height="25dp"
+            android:layout_alignEnd="@+id/profileFragmentFollowingCount"
+            android:textSize="15sp"
+            android:layout_marginRight="15dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:text="Following " />
 
         <TextView
             android:id="@+id/profileFragmentFollowingCount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/profileFragmentFollowing"
+            android:layout_height="25dp"
+            android:textSize="15sp"
+            android:layout_alignParentEnd="true"
             android:clickable="true"
+            android:textColor="@android:color/holo_blue_dark"
             android:text="0"/>
 
         <TextView
             android:id="@+id/profileFragmentFollowers"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/profileFragmentProfPic"
+            android:layout_height="25dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_alignEnd="@+id/profileFragmentFollowersCount"
             android:layout_below="@+id/profileFragmentFollowing"
-            android:clickable="true"
+            android:layout_marginRight="15dp"
+            android:textSize="15sp"
             android:text="Followers " />
 
         <TextView
             android:id="@+id/profileFragmentFollowersCount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/profileFragmentFollowers"
+            android:layout_height="25dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/profileFragmentFollowing"
             android:clickable="true"
             android:text="0"/>
@@ -73,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal">
 
         <ListView

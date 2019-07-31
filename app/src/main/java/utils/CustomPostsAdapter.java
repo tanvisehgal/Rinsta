@@ -88,6 +88,8 @@ public class CustomPostsAdapter extends BaseAdapter {
         viewHolder.time.setText(" " + (currPost.getTimeStamp()));
         viewHolder.caption.setText(currPost.getCaption());
 
+        viewHolder.likes.setContentDescription(viewHolder.likes.getText().toString());
+
 
         Log.d("name", currPost.getImageid());
 
@@ -107,13 +109,13 @@ public class CustomPostsAdapter extends BaseAdapter {
             }
         });
 
-//        viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dbRef.child("post").child(new StringManipulation()
-//                        .removeJpgFromEnd(currPost.getImageid())).child("numLikes").get
-//            }
-//        });
+        viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("following", "desc: " + view.findViewById(R.id.numLikes).toString());
+               Log.d("following", "description: " + view.findViewById(R.id.numLikes).getContentDescription().toString());
+            }
+        });
 
         return view;
     }

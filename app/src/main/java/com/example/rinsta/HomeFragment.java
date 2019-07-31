@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -51,7 +52,7 @@ import utils.StringManipulation;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener {
 
 
     public HomeFragment() {
@@ -231,6 +232,10 @@ public class HomeFragment extends Fragment {
 
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+    }
 
 
 

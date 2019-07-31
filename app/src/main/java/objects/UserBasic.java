@@ -2,15 +2,15 @@ package objects;
 
 public class UserBasic {
     private int profilepic;
-    private String email;
+    private String username;
 
     public UserBasic() {
 
     }
 
-    public UserBasic(int profilepic, String email) {
+    public UserBasic(int profilepic, String username) {
         this.profilepic = profilepic;
-        this.email = email;
+        this.username = username;
     }
 
     public int getProfilepic() {
@@ -21,11 +21,11 @@ public class UserBasic {
         this.profilepic = profilepic;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
