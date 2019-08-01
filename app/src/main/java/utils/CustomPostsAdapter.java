@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -60,7 +62,7 @@ public class CustomPostsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, final ViewGroup viewGroup) {
         final ViewHolder viewHolder;
 
         if (view == null) {
@@ -114,8 +116,11 @@ public class CustomPostsAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 int newLikes = currPost.getNumLikes() + 1;
+                currPost.setNumLikes(newLikes);
                 dbRef.child("post").child(new StringManipulation().removeJpgFromEnd(currPost
                         .getImageid())).child("numLikes").setValue(newLikes);
+
+                //((BaseAdapter)((ListView)viewGroup).getAdapter()).notifyDataSetChanged();
 
             }
         });
