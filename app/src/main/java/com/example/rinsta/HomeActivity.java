@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -34,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
        // tabLayout.getTabAt(0).setIcon(R.drawable.homebutton);
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }
 
     }
 
