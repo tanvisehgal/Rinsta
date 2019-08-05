@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -113,7 +114,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post c = dataSnapshot.getValue(Post.class);
-                allMyPosts.add(new PostsAdapterItem(c));
+                PostsAdapterItem pai = new PostsAdapterItem(c);
+                allMyPosts.add(pai);
+                likeImage(pai);
                 myAdapter.notifyDataSetChanged();
             }
 
@@ -140,4 +143,42 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    private void likeImage(final PostsAdapterItem p) {
+        final String imageId = new StringManipulation().removeJpgFromEnd(p.getPost().getImageid());
+        myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
+                Log.d("likes", "key: " + dataSnapshot.getKey());
+                Log.d("likes", "username: " + new StringManipulation().removeSpecialChar(user.getEmail()));
+                if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
+                    p.setLiked(true);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
+                    p.setLiked(false);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

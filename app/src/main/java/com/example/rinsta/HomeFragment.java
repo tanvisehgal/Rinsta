@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     private CustomPostsAdapter myAdapter;
     private ListView myListView;
     private String userIdentifier;
+    private androidx.appcompat.widget.SearchView search;
 
     private ImageView likebutton;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -92,6 +94,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         postButton = view.findViewById(R.id.postButton);
         storageRootRef = FirebaseStorage.getInstance().getReference();
         likebutton = view.findViewById(R.id.heartImageOff);
+        search = view.findViewById(R.id.search);
+        search.setQueryHint("Find users");
 
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
