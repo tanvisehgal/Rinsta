@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         userIdentifier = new StringManipulation().removeSpecialChar(user.getEmail());
         postButton = view.findViewById(R.id.postButton);
         storageRootRef = FirebaseStorage.getInstance().getReference();
-        likebutton = view.findViewById(R.id.heartImage);
+        likebutton = view.findViewById(R.id.heartImageOff);
 
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
@@ -104,10 +105,40 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
-    private void likeImage() {
-        likebutton.setOnClickListener(new View.OnClickListener() {
+    private void likeImage(final PostsAdapterItem p) {
+        final String imageId = new StringManipulation().removeJpgFromEnd(p.getPost().getImageid());
+        myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onClick(View view) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
+                Log.d("likes", "key: " + dataSnapshot.getKey());
+                Log.d("likes", "username: " + new StringManipulation().removeSpecialChar(user.getEmail()));
+                if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
+                    p.setLiked(true);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
+                    p.setLiked(false);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -149,12 +180,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void addMyPosts() {
-        myRef.child("post").orderByChild("email").equalTo(userIdentifier).addChildEventListener(new ChildEventListener() {
+        myRef.child("post").orderByChild("uniqueIdentifier").equalTo(userIdentifier).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
                 Log.d("following", "my post caption: " + post.getCaption());
-                allPosts.add(new PostsAdapterItem(post));
+                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post);
+                allPosts.add(postsAdapterItem);
+                likeImage(postsAdapterItem);
                 myAdapter.notifyDataSetChanged();
             }
 
@@ -182,19 +215,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void addPosts(String userid) {
-        Log.d("following", "add posts userid: " + userid);
-        Log.d("following", "addPosts called");
-        Log.d("following", "addPosts size of following list: " + following.size());
-        Log.d("following", "useridentifier: " + userIdentifier);
-
-        Query postsByUser = myRef.child("post").orderByChild("email").equalTo(userid);
+        Query postsByUser = myRef.child("post").orderByChild("uniqueIdentifier").equalTo(userid);
         postsByUser.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
-                allPosts.add(new PostsAdapterItem(post));
-                Log.d("following", post.getCaption());
-                Log.d("following", "allPosts size: " + allPosts.size());
+                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post);
+                allPosts.add(postsAdapterItem);
+                likeImage(postsAdapterItem);
                 myAdapter.notifyDataSetChanged();
             }
 
@@ -232,13 +260,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
     }
-
-
 
 
 }

@@ -15,7 +15,7 @@
             android:id="@+id/profileFragmentProfPic"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="20dp"
+
             android:layout_marginRight="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/blankprofile" />
@@ -96,7 +96,7 @@
         <ListView
             android:layout_centerHorizontal="true"
             android:id="@+id/profileFragmentListView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 

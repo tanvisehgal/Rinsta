@@ -5,63 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#9E16BAE0"
     tools:context=".CreateAccountActivity">
 
     <TextView
         android:id="@+id/rinstaCA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:fontFamily="casual"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/holo_blue_dark"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:paddingTop="100dp"
-        android:paddingBottom="50dp"/>
+        android:layout_width="279dp"
+        android:layout_height="106dp"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="106dp"
+        android:fontFamily="@font/archivo_black"
+        android:text="RINSTA"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColorHighlight="#00702222"
+        android:textSize="55sp"
+        android:typeface="normal"/>
 
     <EditText
         android:id="@+id/emailCA"
+        android:gravity="center_horizontal"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Email address"
-        android:inputType="textEmailAddress|text"
-        android:layout_gravity="center" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:hint="email address"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/passwordCA"
         android:layout_width="300dp"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_gravity="center_horizontal"
         android:hint="Password"
-        android:inputType="textPassword"
-        android:layout_gravity="center"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="20dp"
+        android:background="#80256B7C"
+        android:fontFamily="@font/archivo_black"
         android:text="Sign Up"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:textColor="@android:color/white"/>
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="45dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/alreadyHaveAccount"
+            android:text="Already have an account?"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"
-            android:gravity="center_horizontal"
-            android:layout_marginStart="70dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="9dp" />
 
         <TextView
             android:id="@+id/logIn"
@@ -69,9 +77,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:text="Log in here"
-            android:gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"/>
+            android:textColor="#E91E63"
+            android:textStyle="bold"/>
 
 
     </LinearLayout>

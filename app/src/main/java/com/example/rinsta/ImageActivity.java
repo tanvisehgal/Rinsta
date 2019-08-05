@@ -112,7 +112,7 @@ public class ImageActivity extends AppCompatActivity {
         String caption = editTextCaption.getText().toString();
         String imageid = new StringManipulation().removeJpgFromEnd(f.getName());
         String userid = new StringManipulation().removeSpecialChar(user.getEmail());
-        Post post = new Post(f.getName(), 0, 0, timeStamp, userid,
+        Post post = new Post(f.getName(), 0, 0, timeStamp, user.getEmail(), userid,
                 caption);
         myRef.child("post").child(imageid).setValue(post);
 

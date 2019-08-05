@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutAbovePost"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_height="30dp"
         android:background="@drawable/postborder"
         android:paddingBottom="3dp"
@@ -16,6 +17,7 @@
         android:paddingStart="3dp"
         android:paddingEnd="3dp"
         android:padding="1dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -33,26 +35,30 @@
             android:id="@+id/usernameAbovePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
             android:clickable="true"
             android:text="username1"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="#166DAF"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timeStamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/linearLayoutAbovePost"
+            android:layout_gravity="center_vertical"
             android:gravity="end"
             android:text="2:37pm"
             android:textAlignment="textEnd"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="#15588D" />
     </LinearLayout>
 
 
 
     <ImageView
         android:id="@+id/post"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_below="@+id/linearLayoutAbovePost"
         android:layout_height="300dp"
         android:gravity="center_horizontal"
@@ -62,43 +68,87 @@
 
    <LinearLayout
        android:id="@+id/linearLayoutBelowPost"
-       android:layout_width="300dp"
+       android:layout_width="match_parent"
        android:layout_height="30dp"
        android:orientation="horizontal"
        android:layout_below="@+id/post"
+       android:layout_margin="10dp"
        android:background="@drawable/postborder">
-       <ImageView
-           android:id="@+id/heartImage"
-           android:layout_width="30dp"
-           android:layout_height="30dp"
-           android:gravity="center_vertical"
-           android:maxWidth="20dp"
-           android:maxHeight="20dp"
-           android:clickable="true"
-           android:src="@drawable/hearticon" />
+       
+       <!--<ViewFlipper-->
+           <!--android:id="@+id/heartImage"-->
+           <!--android:layout_width="wrap_content"-->
+           <!--android:layout_height="wrap_content">-->
+
+           <ImageView
+               android:id="@+id/heartImageOff"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:gravity="center_vertical"
+               android:layout_marginRight="10dp"
+               android:maxWidth="20dp"
+               android:maxHeight="20dp"
+               android:clickable="true"
+               android:src="@drawable/heart_off" />
+
+           <!--<ImageView-->
+               <!--android:id="@+id/heartImageOn"-->
+               <!--android:layout_width="30dp"-->
+               <!--android:layout_height="30dp"-->
+               <!--android:gravity="center_vertical"-->
+               <!--android:layout_marginRight="10dp"-->
+               <!--android:maxWidth="20dp"-->
+               <!--android:maxHeight="20dp"-->
+               <!--android:clickable="true"-->
+               <!--android:src="@drawable/heart_on" />-->
+
+
+
+       <!--</ViewFlipper>-->
+
 
        <TextView
            android:id="@+id/numLikes"
            android:layout_width="wrap_content"
-           android:layout_height="40dp"
+           android:layout_height="match_parent"
            android:layout_below="@+id/caption"
-           android:layout_toEndOf="@+id/heartImage"
+           android:layout_toEndOf="@+id/heartImageOff"
+           android:clickable="true"
            android:gravity="center_vertical"
            android:text="100 likes"
-           android:clickable="true"/>
+           android:textAlignment="gravity"
+           android:textColor="@android:color/black"
+           android:textStyle="bold" />
 
    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayoutCaption"
+        android:layout_width="match_parent"
         android:layout_below="@+id/linearLayoutBelowPost"
-        android:layout_alignStart="@+id/post"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="-2dp"
-        android:text="caption" />
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/usernameBelowPost"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:text="username1"
+            android:textColor="#166DAF"
+            android:textStyle="bold"
+            android:layout_marginRight="4dp"/>
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="caption" />
+    </LinearLayout>
+
 
 
 
@@ -108,8 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
-        android:layout_below="@+id/caption"
-        android:text="27 comments"
+        android:layout_below="@+id/linearLayoutCaption"
         android:gravity="center_vertical"/>
 
 

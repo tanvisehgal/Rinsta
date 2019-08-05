@@ -96,7 +96,7 @@ public class ProfileFragment extends Fragment {
                 numFollowers.setText(Integer.toString(userInfo.getNumFollowers()));
                 username.setText(new StringManipulation().extractUsername(userInfo.getEmail()));
                 bio.setText(userInfo.getDescription());
-              //  profPic.setImageResource(userInfo.getProfilepic());
+            //    profPic.setImageResource(userInfo.getProfilepic());
 
             }
 
@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateList() {
-        myRef.child("post").orderByChild("email").equalTo(new StringManipulation()
+        myRef.child("post").orderByChild("uniqueIdentifier").equalTo(new StringManipulation()
                 .removeSpecialChar(user.getEmail())).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override

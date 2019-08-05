@@ -28,17 +28,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-//        tabLayout.addTab(tabLayout.newTab().setText("Notifications"));
-//        tabLayout.addTab(tabLayout.newTab().setText("Activity"));
-//        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
-
-
-
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
+       // tabLayout.getTabAt(0).setIcon(R.drawable.homebutton);
 
     }
 

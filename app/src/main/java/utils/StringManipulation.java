@@ -35,4 +35,12 @@ public class StringManipulation {
         }
         return edited.toString();
     }
+
+    public String formatTime(String time) {
+        StringBuilder t = new StringBuilder();
+        t.append(time.substring(9, 11));
+        t.append(":");
+        t.append(time.substring(11, 13));
+        return t.toString();
+    }
 }

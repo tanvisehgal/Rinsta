@@ -17,13 +17,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
+//        if (position == 0) {
+//            fragment = new NotificationFragment();
+//        }
         if (position == 0) {
-            fragment = new NotificationFragment();
-        }
-        if (position == 1) {
             fragment = new HomeFragment();
         }
-        if (position == 2) {
+        if (position == 1) {
             fragment = new ProfileFragment();
         }
         return fragment;
@@ -31,15 +31,17 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
+
+
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0: return "Notifications";
-            case 1: return "Home";
-            case 2: return "Profile";
+            case 0: return "Home";
+            case 1: return "Profile";
+           // case 2: return "Profile";
             default: return null;
         }
     }
