@@ -207,6 +207,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.d("followers", "on added called " + dataSnapshot.getValue());
                 myAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -240,7 +241,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Post post = dataSnapshot.getValue(Post.class);
 
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override

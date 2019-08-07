@@ -1,6 +1,8 @@
 package utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -18,6 +20,7 @@ import android.widget.ViewFlipper;
 
 //import com.bumptech.glide.Glide;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.rinsta.R;
 
@@ -25,6 +28,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +46,7 @@ public class CustomPostsAdapter extends BaseAdapter {
     StorageReference storageReference;
     FirebaseUser currUser;
 
+    private ArrayList<String> likesList = new ArrayList<>();
     private DatabaseReference dbRef;
 
     public CustomPostsAdapter(Context context, ArrayList<PostsAdapterItem> allPosts) {
@@ -92,18 +99,18 @@ public class CustomPostsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         final Post currPost = allPosts.get(i).getPost();
-        Log.d("email", currPost.getEmail() + " " + new StringManipulation().extractUsername(currPost.getEmail()));
+        Log.d("email", currPost.getEmail() + " " + new StringManipulation()
+                .extractUsername(currPost.getEmail()));
         viewHolder.username.setText(new StringManipulation().extractUsername(currPost.getEmail()));
         viewHolder.username2.setText(new StringManipulation().extractUsername(currPost.getEmail()));
         viewHolder.likes.setText(currPost.getNumLikes() + " likes");
-       // viewHolder.comments.setText(Integer.toString(currPost.getNumComments()));
+        // viewHolder.comments.setText(Integer.toString(currPost.getNumComments()));
         viewHolder.time.setText(new StringManipulation().formatTime(currPost.getTimeStamp()));
         viewHolder.caption.setText(currPost.getCaption());
         viewHolder.likes.setContentDescription(viewHolder.likes.getText().toString());
         if (allPosts.get(i).isLiked()) {
             viewHolder.likeButton.setImageResource(R.drawable.heart_on);
-        }
-        else {
+        } else {
             viewHolder.likeButton.setImageResource(R.drawable.heart_off);
         }
 
@@ -137,8 +144,7 @@ public class CustomPostsAdapter extends BaseAdapter {
                     currPost.setNumLikes(newLikes);
                     dbRef.child("post").child(new StringManipulation().removeJpgFromEnd(currPost
                             .getImageid())).child("numLikes").setValue(newLikes);
-                }
-                else {
+                } else {
                     dbRef.child("likes").child(imageId).child(username).setValue("true");
                     int newLikes = currPost.getNumLikes() + 1;
                     currPost.setNumLikes(newLikes);
@@ -147,6 +153,49 @@ public class CustomPostsAdapter extends BaseAdapter {
                 }
 
 
+            }
+        });
+
+
+
+        dbRef.child("likes").child(new StringManipulation().removeJpgFromEnd(currPost.getImageid()))
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        String nameliked = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
+                        likesList.add(nameliked);
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        viewHolder.likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(context).setTitle("Likes").setItems(likesList.toArray(new String[likesList.size()]), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
             }
         });
 

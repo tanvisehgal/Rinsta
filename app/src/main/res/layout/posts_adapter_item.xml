@@ -9,27 +9,27 @@
     <LinearLayout
         android:id="@+id/linearLayoutAbovePost"
         android:layout_width="match_parent"
-        android:layout_centerHorizontal="true"
         android:layout_height="30dp"
-        android:background="@drawable/postborder"
-        android:paddingBottom="3dp"
-        android:paddingTop="3dp"
-        android:paddingStart="3dp"
-        android:paddingEnd="3dp"
-        android:padding="1dp"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:background="@drawable/postborder"
+        android:orientation="horizontal"
+        android:padding="1dp"
+        android:paddingStart="3dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="3dp">
 
         <ImageView
             android:id="@+id/profPicPost"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
             android:background="#000000"
             android:padding="1dp"
-            android:layout_marginEnd="10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/blankprofile"
-            android:layout_gravity="center_vertical"/>
+            android:src="@drawable/blankprofile" />
 
         <TextView
             android:id="@+id/usernameAbovePost"
@@ -55,92 +55,71 @@
     </LinearLayout>
 
 
-
     <ImageView
         android:id="@+id/post"
         android:layout_width="match_parent"
-        android:layout_below="@+id/linearLayoutAbovePost"
         android:layout_height="300dp"
-        android:gravity="center_horizontal"
+        android:layout_below="@+id/linearLayoutAbovePost"
         android:background="#000000"
+        android:gravity="center_horizontal"
         android:padding="1dp"
         android:src="@drawable/blankprofile" />
 
-   <LinearLayout
-       android:id="@+id/linearLayoutBelowPost"
-       android:layout_width="match_parent"
-       android:layout_height="30dp"
-       android:orientation="horizontal"
-       android:layout_below="@+id/post"
-       android:layout_margin="10dp"
-       android:background="@drawable/postborder">
-       
-       <!--<ViewFlipper-->
-           <!--android:id="@+id/heartImage"-->
-           <!--android:layout_width="wrap_content"-->
-           <!--android:layout_height="wrap_content">-->
+    <LinearLayout
+        android:id="@+id/linearLayoutBelowPost"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/post"
+        android:layout_margin="10dp"
+        android:background="@drawable/postborder"
+        android:orientation="horizontal">
 
-           <ImageView
-               android:id="@+id/heartImageOff"
-               android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:gravity="center_vertical"
-               android:layout_marginRight="10dp"
-               android:maxWidth="20dp"
-               android:maxHeight="20dp"
-               android:clickable="true"
-               android:src="@drawable/heart_off" />
-
-           <!--<ImageView-->
-               <!--android:id="@+id/heartImageOn"-->
-               <!--android:layout_width="30dp"-->
-               <!--android:layout_height="30dp"-->
-               <!--android:gravity="center_vertical"-->
-               <!--android:layout_marginRight="10dp"-->
-               <!--android:maxWidth="20dp"-->
-               <!--android:maxHeight="20dp"-->
-               <!--android:clickable="true"-->
-               <!--android:src="@drawable/heart_on" />-->
+        <ImageView
+            android:id="@+id/heartImageOff"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:maxWidth="20dp"
+            android:maxHeight="20dp"
+            android:src="@drawable/heart_off" />
 
 
+        <TextView
+            android:id="@+id/numLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/caption"
+            android:layout_toEndOf="@+id/heartImageOff"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="100 likes"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
-       <!--</ViewFlipper>-->
-
-
-       <TextView
-           android:id="@+id/numLikes"
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent"
-           android:layout_below="@+id/caption"
-           android:layout_toEndOf="@+id/heartImageOff"
-           android:clickable="true"
-           android:gravity="center_vertical"
-           android:text="100 likes"
-           android:textAlignment="gravity"
-           android:textColor="@android:color/black"
-           android:textStyle="bold" />
-
-   </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/linearLayoutCaption"
         android:layout_width="match_parent"
-        android:layout_below="@+id/linearLayoutBelowPost"
         android:layout_height="30dp"
-        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayoutBelowPost"
         android:layout_marginLeft="13dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/usernameBelowPost"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
             android:clickable="true"
             android:text="username1"
             android:textColor="#166DAF"
-            android:textStyle="bold"
-            android:layout_marginRight="4dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/caption"
@@ -150,17 +129,14 @@
     </LinearLayout>
 
 
-
-
     <TextView
-        android:clickable="true"
         android:id="@+id/numComments"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginStart="30dp"
         android:layout_below="@+id/linearLayoutCaption"
-        android:gravity="center_vertical"/>
-
+        android:layout_marginStart="30dp"
+        android:clickable="true"
+        android:gravity="center_vertical" />
 
 
 </RelativeLayout>

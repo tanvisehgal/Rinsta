@@ -43,4 +43,8 @@ public class StringManipulation {
         t.append(time.substring(11, 13));
         return t.toString();
     }
+
+    public String formatIdentifier(String i) {
+        return i.substring(0, i.length() - 8);
+    }
 }

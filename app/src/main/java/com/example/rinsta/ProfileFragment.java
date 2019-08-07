@@ -1,6 +1,8 @@
 package com.example.rinsta;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -54,6 +56,10 @@ public class ProfileFragment extends Fragment {
     private String usernameString;
     private ImageView profPic;
 
+    private String userIdentifier;
+    private ArrayList<String> following = new ArrayList<>();
+    private ArrayList<String> followers = new ArrayList<>();
+
     //database
     private FirebaseDatabase fbDatabase;
     private DatabaseReference myRef;
@@ -75,6 +81,7 @@ public class ProfileFragment extends Fragment {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        userIdentifier = new StringManipulation().removeSpecialChar(user.getEmail());
 
         myAdapter = new CustomPostsAdapter(getActivity(), allMyPosts);
         listView.setAdapter(myAdapter);
@@ -82,6 +89,9 @@ public class ProfileFragment extends Fragment {
         myAdapter.clear();
         populateList();
 
+        followingFollowersListeners();
+        showFollowers();
+        showFollowing();
         updateProfile();
 
 
@@ -97,7 +107,7 @@ public class ProfileFragment extends Fragment {
                 numFollowers.setText(Integer.toString(userInfo.getNumFollowers()));
                 username.setText(new StringManipulation().extractUsername(userInfo.getEmail()));
                 bio.setText(userInfo.getDescription());
-            //    profPic.setImageResource(userInfo.getProfilepic());
+                //    profPic.setImageResource(userInfo.getProfilepic());
 
             }
 
@@ -159,7 +169,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -178,6 +188,97 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void followingFollowersListeners() {
+        myRef.child("following").child(userIdentifier).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String identifier = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
+                following.add(identifier);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef.child("followers").child(userIdentifier).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String identifier = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
+                followers.add(identifier);
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showFollowers() {
+        numFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Followers")
+                        .setItems(followers.toArray(new String[followers.size()]), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).show();
+            }
+        });
+    }
+
+    private void showFollowing() {
+        numFollowing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Following")
+                        .setItems(following.toArray(new String[following.size()]), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).show();
             }
         });
     }
