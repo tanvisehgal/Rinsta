@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".UserProfileActivity">
 
     <RelativeLayout
-        android:id="@+id/profileFragmentHeader"
+        android:id="@+id/userProfileHeader"
         android:layout_width="match_parent"
         android:layout_margin="20dp"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/profileFragmentProfPic"
+            android:id="@+id/userProfileProfPic"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginRight="20dp"
@@ -20,29 +21,31 @@
             android:src="@drawable/blankprofile" />
 
         <TextView
-            android:id="@+id/profileFragmentUsername"
+            android:id="@+id/userProfileUsername"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_toRightOf="@+id/profileFragmentProfPic"
+            android:layout_toRightOf="@+id/userProfileProfPic"
             android:text="user"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="20sp"/>
 
+
+
         <TextView
-            android:id="@+id/profileFragmentBio"
+            android:id="@+id/userProfileBio"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_below="@+id/profileFragmentUsername"
-            android:layout_toEndOf="@+id/profileFragmentProfPic"
+            android:layout_below="@+id/userProfileUsername"
+            android:layout_toEndOf="@+id/userProfileProfPic"
             android:text="Bio" />
 
         <TextView
-            android:id="@+id/profileFragmentFollowing"
+            android:id="@+id/userProfileFollowing"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_alignEnd="@+id/profileFragmentFollowingCount"
+            android:layout_alignEnd="@+id/userProfileFollowingCount"
             android:textSize="15sp"
             android:layout_marginRight="15dp"
             android:textStyle="bold"
@@ -50,7 +53,7 @@
             android:text="Following " />
 
         <TextView
-            android:id="@+id/profileFragmentFollowingCount"
+            android:id="@+id/userProfileFollowingCount"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textSize="15sp"
@@ -60,32 +63,43 @@
             android:text="0"/>
 
         <TextView
-            android:id="@+id/profileFragmentFollowers"
+            android:id="@+id/userProfileFollowers"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:layout_alignEnd="@+id/profileFragmentFollowersCount"
-            android:layout_below="@+id/profileFragmentFollowing"
+            android:layout_alignEnd="@+id/userProfileFollowersCount"
+            android:layout_below="@+id/userProfileFollowing"
             android:layout_marginRight="15dp"
             android:textSize="15sp"
             android:text="Followers " />
 
         <TextView
-            android:id="@+id/profileFragmentFollowersCount"
+            android:id="@+id/userProfileFollowersCount"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textSize="15sp"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/profileFragmentFollowing"
+            android:layout_below="@+id/userProfileFollowing"
             android:clickable="true"
             android:text="0"/>
+
+        <Button
+            android:id="@+id/userProfileFollowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            android:maxHeight="15dp"
+            android:maxWidth="15dp"
+            android:layout_below="@+id/userProfileFollowers"
+            android:layout_alignParentEnd="true"/>
+
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/profileFragmentHeader"
+        android:layout_below="@+id/userProfileHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -94,11 +108,9 @@
 
         <ListView
             android:layout_centerHorizontal="true"
-            android:id="@+id/profileFragmentListView"
+            android:id="@+id/userProfileListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
-
-
 
 </RelativeLayout>

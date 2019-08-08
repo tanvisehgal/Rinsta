@@ -3,6 +3,7 @@ package utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -24,6 +25,7 @@ import androidx.annotation.Nullable;
 
 import com.example.rinsta.R;
 
+import com.example.rinsta.UserProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -190,10 +192,15 @@ public class CustomPostsAdapter extends BaseAdapter {
         viewHolder.likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(context).setTitle("Likes").setItems(likesList.toArray(new String[likesList.size()]), new DialogInterface.OnClickListener() {
+                final String[] likesArray = likesList.toArray(new String[likesList.size()]);
+                new AlertDialog.Builder(context).setTitle("Likes").setItems(likesArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        String userProfileUsername = likesArray[i] + "gmailcom";
+                        //UserProfileActivity userProfileActivity = new UserProfileActivity(userProfileUsername);
+                        Intent intent = new Intent(context, UserProfileActivity.class);
+                        intent.putExtra("userProfileUsername", userProfileUsername);
+                        context.startActivity(intent);
                     }
                 }).show();
             }

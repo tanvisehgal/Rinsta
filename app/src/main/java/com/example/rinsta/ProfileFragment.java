@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -94,7 +95,6 @@ public class ProfileFragment extends Fragment {
         showFollowing();
         updateProfile();
 
-
         return view;
     }
 
@@ -158,7 +158,7 @@ public class ProfileFragment extends Fragment {
         myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), new StringManipulation().formatIdentifier(dataSnapshot.getKey()) + " liked this image", Toast.LENGTH_SHORT).show();
                 Log.d("likes", "key: " + dataSnapshot.getKey());
                 Log.d("likes", "username: " + new StringManipulation().removeSpecialChar(user.getEmail()));
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
