@@ -2,6 +2,7 @@ package utils;
 
 public class StringManipulation {
 
+    // get username from email
     public String extractUsername(String email) {
         StringBuilder username = new StringBuilder();
         for (int i = 0; i < email.length(); i++) {
@@ -13,6 +14,7 @@ public class StringManipulation {
         return username.toString();
     }
 
+    // get unique identifier from email
     public String removeSpecialChar(String s) {
         StringBuilder edited = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
@@ -23,6 +25,7 @@ public class StringManipulation {
         return edited.toString();
     }
 
+    // format image for database
     public String removeJpgFromEnd(String imgFile) {
         StringBuilder edited = new StringBuilder();
         for (int i = 0; i < imgFile.length(); i++) {

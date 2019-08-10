@@ -1,6 +1,7 @@
 package com.example.rinsta;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -60,7 +62,7 @@ import utils.StringManipulation;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
@@ -71,11 +73,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private CustomPostsAdapter myAdapter;
     private ListView myListView;
     private String userIdentifier;
-    private Spinner search;
-    private ArrayList<String> allOtherUsers = new ArrayList<>();
+
+    Long pictureTimestamp;
+
+
     private ImageView likebutton;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private Button postButton;
+
+
 
     private ArrayList<String> following = new ArrayList<>();
 
@@ -97,25 +102,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         myRef = fbDatabase.getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userIdentifier = new StringManipulation().removeSpecialChar(user.getEmail());
-        postButton = view.findViewById(R.id.postButton);
+
         storageRootRef = FirebaseStorage.getInstance().getReference();
         likebutton = view.findViewById(R.id.heartImageOff);
-        search = view.findViewById(R.id.search);
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, allOtherUsers);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        search.setAdapter(spinnerArrayAdapter);
-        search.setOnItemSelectedListener(this);
+ //      pictureTimestamp = getArguments().getLong("timestamp");
 
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
         addToFollowingList();
         addMyPosts();
-        addToAllOtherUsers();
-        setSearch();
 
-        Log.d("following", "size: " + following.size());
-        postImage();
+
 
         return view;
 
@@ -126,14 +124,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    // check to see if I liked an image and set boolean
     private void likeImage(final PostsAdapterItem p) {
         final String imageId = new StringManipulation().removeJpgFromEnd(p.getPost().getImageid());
         myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
-                Log.d("likes", "key: " + dataSnapshot.getKey());
-                Log.d("likes", "username: " + new StringManipulation().removeSpecialChar(user.getEmail()));
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
                     p.setLiked(true);
                 }
@@ -166,6 +163,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
 
+    // go through the people I'm following and add their posts
     private void addToFollowingList() {
         Query myFollowing = myRef.child("following").child(userIdentifier);
         myFollowing.addChildEventListener(new ChildEventListener() {
@@ -200,6 +198,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         });
     }
 
+    // add my posts to the home feed
     private void addMyPosts() {
         myRef.child("post").orderByChild("uniqueIdentifier").equalTo(userIdentifier).addChildEventListener(new ChildEventListener() {
             @Override
@@ -236,6 +235,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         });
     }
 
+    // add other users post to home feed
     private void addPosts(String userid) {
         Query postsByUser = myRef.child("post").orderByChild("uniqueIdentifier").equalTo(userid);
         postsByUser.addChildEventListener(new ChildEventListener() {
@@ -272,81 +272,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         });
     }
 
-    private void addToAllOtherUsers() {
-        myRef.child("user_settings").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                User userInfo = dataSnapshot.getValue(User.class);
-                Log.d("profile", userInfo.toString());
-                String username = new StringManipulation().extractUsername(userInfo.getEmail());
-                if (!userInfo.getEmail().equals(user.getEmail())) {
-                    allOtherUsers.add(username);
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    // temporary - post images
-    private void postImage() {
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), ImageActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    private void setSearch() {
-        search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String userProfileUsername = adapterView.getItemAtPosition(i).toString();
-                Log.d("search", userProfileUsername);
-                Intent intent = new Intent(getContext(), UserProfileActivity.class);
-                intent.putExtra("userProfileUsername", userProfileUsername);
-                getContext().startActivity(intent);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String userProfileUsername = adapterView.getItemAtPosition(i).toString();
-        Log.d("search", "2: " + userProfileUsername);
-        Intent intent = new Intent(getContext(), UserProfileActivity.class);
-        intent.putExtra("userProfileUsername", userProfileUsername);
-        getContext().startActivity(intent);
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }
+

@@ -2,43 +2,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".HomeFragment"
     android:layout_gravity="center_horizontal"
-    android:layout_centerHorizontal="true">
+    android:layout_centerHorizontal="true"
+    android:id="@+id/homeFragmentID">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <Spinner
-            android:id="@+id/search"
-            android:prompt="@string/find_users"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
 
 
         <ListView
             android:layout_gravity="center_horizontal"
             android:id="@+id/homeFragmentImagesListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/postButton"
-            android:layout_below="@+id/search"/>
+            android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/postButton"
-            android:text="post"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:background="#80256B7C"
-            android:fontFamily="@font/archivo_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            />
 
     </RelativeLayout>
 

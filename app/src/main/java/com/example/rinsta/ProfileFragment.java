@@ -1,8 +1,10 @@
 package com.example.rinsta;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +57,14 @@ public class ProfileFragment extends Fragment {
     private ListView listView;
     private ArrayList<PostsAdapterItem> allMyPosts = new ArrayList<>();
     CustomPostsAdapter myAdapter;
+    private Spinner search;
 
     private TextView numFollowers, numFollowing, username, bio;
     private String usernameString;
     private ImageView profPic;
 
+    int followersCount;
+    int followingCount;
     private String userIdentifier;
     private ArrayList<String> following = new ArrayList<>();
     private ArrayList<String> followers = new ArrayList<>();
@@ -65,6 +73,10 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase fbDatabase;
     private DatabaseReference myRef;
     private FirebaseUser user;
+
+    private ArrayList<String> allOtherUsers = new ArrayList<>();
+    ArrayAdapter<String> spinnerArrayAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +90,8 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.profileFragmentUsername);
         bio = view.findViewById(R.id.profileFragmentBio);
         profPic = view.findViewById(R.id.profileFragmentProfPic);
+        followersCount = 0;
+        followingCount = 0;
 
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference();
@@ -95,9 +109,36 @@ public class ProfileFragment extends Fragment {
         showFollowing();
         updateProfile();
 
+        search = view.findViewById(R.id.search);
+        allOtherUsers.add("Find friends");
+        addToAllOtherUsers();
+
+        spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, allOtherUsers);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        search.setAdapter(spinnerArrayAdapter);
+        // set search users drop down menu
+        search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i != 0) {
+                    String userProfileUsername = adapterView.getItemAtPosition(i).toString();
+                    Log.d("search", "2: " + userProfileUsername);
+                    Intent intent = new Intent(getContext(), UserProfileActivity.class);
+                    intent.putExtra("userProfileUsername", userProfileUsername);
+                    getContext().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return view;
     }
 
+    // add users profile info
     private void updateProfile() {
         myRef.child("user_settings").child(new StringManipulation().removeSpecialChar(user.getEmail())).addValueEventListener(new ValueEventListener() {
             @Override
@@ -118,6 +159,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    // add my posts to my profile feed
     private void populateList() {
         myRef.child("post").orderByChild("uniqueIdentifier").equalTo(new StringManipulation()
                 .removeSpecialChar(user.getEmail())).addChildEventListener(new ChildEventListener() {
@@ -153,14 +195,13 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    // check if I liked an image
     private void likeImage(final PostsAdapterItem p) {
         final String imageId = new StringManipulation().removeJpgFromEnd(p.getPost().getImageid());
         myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Toast.makeText(getContext(), new StringManipulation().formatIdentifier(dataSnapshot.getKey()) + " liked this image", Toast.LENGTH_SHORT).show();
-                Log.d("likes", "key: " + dataSnapshot.getKey());
-                Log.d("likes", "username: " + new StringManipulation().removeSpecialChar(user.getEmail()));
+               // Toast.makeText(getContext(), new StringManipulation().formatIdentifier(dataSnapshot.getKey()) + " liked this image", Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
                     p.setLiked(true);
                 }
@@ -172,6 +213,7 @@ public class ProfileFragment extends Fragment {
                 myAdapter.notifyDataSetChanged();
             }
 
+            // check if I've unliked an image
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
@@ -192,12 +234,16 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    // add my followers and following to list on profile page
     private void followingFollowersListeners() {
         myRef.child("following").child(userIdentifier).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("profile", dataSnapshot.getKey());
+                followingCount++;
                 String identifier = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
                 following.add(identifier);
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -207,7 +253,9 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                followingCount--;
+                following.remove(new StringManipulation().formatIdentifier(dataSnapshot.getKey()));
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -221,11 +269,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
         myRef.child("followers").child(userIdentifier).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String identifier = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
                 followers.add(identifier);
+                followersCount++;
                 myAdapter.notifyDataSetChanged();
             }
 
@@ -236,7 +286,9 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                followersCount--;
+                followers.remove(new StringManipulation().formatIdentifier(dataSnapshot.getKey()));
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -251,6 +303,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    // dialog box when opening followers
     private void showFollowers() {
         numFollowers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,6 +320,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    // dialog box when opening following
     private void showFollowing() {
         numFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,4 +336,42 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    // list of users for drop down menu
+    private void addToAllOtherUsers() {
+        myRef.child("user_settings").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User userInfo = dataSnapshot.getValue(User.class);
+                Log.d("profile", userInfo.toString());
+                String username = new StringManipulation().extractUsername(userInfo.getEmail());
+                if (!userInfo.getEmail().equals(user.getEmail())) {
+                    allOtherUsers.add(username);
+                }
+                spinnerArrayAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

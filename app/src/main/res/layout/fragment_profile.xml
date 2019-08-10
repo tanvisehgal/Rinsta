@@ -19,6 +19,13 @@
             android:scaleType="fitCenter"
             android:src="@drawable/blankprofile" />
 
+        <Spinner
+            android:id="@+id/search"
+            android:prompt="@string/find_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileFragmentProfPic"/>
+
         <TextView
             android:id="@+id/profileFragmentUsername"
             android:layout_width="wrap_content"
