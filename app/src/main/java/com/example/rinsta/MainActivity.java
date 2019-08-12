@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
+                       // Toast.makeText(this, token, Toast.LENGTH_LONG);
                         // Log and toast
-                        Log.d("token", token);
-                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                        Log.w("token", token);
+                    //    Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                                    Toast.makeText(MainActivity.this, "login", Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(MainActivity.this, "login", Toast.LENGTH_LONG).show();
                                     startActivity(i);
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException()

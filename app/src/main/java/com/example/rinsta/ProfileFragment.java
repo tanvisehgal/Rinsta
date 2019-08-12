@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -63,11 +64,14 @@ public class ProfileFragment extends Fragment {
     private String usernameString;
     private ImageView profPic;
 
+    private Button signOutButton;
     int followersCount;
     int followingCount;
     private String userIdentifier;
     private ArrayList<String> following = new ArrayList<>();
     private ArrayList<String> followers = new ArrayList<>();
+    private String[] followersArray;
+    private String[] followingArray;
 
     //database
     private FirebaseDatabase fbDatabase;
@@ -90,6 +94,7 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.profileFragmentUsername);
         bio = view.findViewById(R.id.profileFragmentBio);
         profPic = view.findViewById(R.id.profileFragmentProfPic);
+        signOutButton = view.findViewById(R.id.signOutButton);
         followersCount = 0;
         followingCount = 0;
 
@@ -108,7 +113,7 @@ public class ProfileFragment extends Fragment {
         showFollowers();
         showFollowing();
         updateProfile();
-
+        signOutButtonFunctionality();
         search = view.findViewById(R.id.search);
         allOtherUsers.add("Find friends");
         addToAllOtherUsers();
@@ -136,6 +141,15 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void signOutButtonFunctionality() {
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
     }
 
     // add users profile info
@@ -201,7 +215,7 @@ public class ProfileFragment extends Fragment {
         myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               // Toast.makeText(getContext(), new StringManipulation().formatIdentifier(dataSnapshot.getKey()) + " liked this image", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), new StringManipulation().formatIdentifier(dataSnapshot.getKey()) + " liked this image", Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
                     p.setLiked(true);
                 }
@@ -305,6 +319,7 @@ public class ProfileFragment extends Fragment {
 
     // dialog box when opening followers
     private void showFollowers() {
+        //  followersArray = followers.toArray(new String[followers.size()]);
         numFollowers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,7 +328,10 @@ public class ProfileFragment extends Fragment {
                         .setItems(followers.toArray(new String[followers.size()]), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                String userProfileUsername = followers.get(i);
+                                Intent intent = new Intent(getContext(), UserProfileActivity.class);
+                                intent.putExtra("userProfileUsername", userProfileUsername);
+                                getContext().startActivity(intent);
                             }
                         }).show();
             }
@@ -330,7 +348,10 @@ public class ProfileFragment extends Fragment {
                         .setItems(following.toArray(new String[following.size()]), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                String userProfileUsername = following.get(i);
+                                Intent intent = new Intent(getContext(), UserProfileActivity.class);
+                                intent.putExtra("userProfileUsername", userProfileUsername);
+                                getContext().startActivity(intent);
                             }
                         }).show();
             }

@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
-
     private ArrayList<String> following = new ArrayList<>();
 
     //database
@@ -106,13 +105,12 @@ public class HomeFragment extends Fragment {
         storageRootRef = FirebaseStorage.getInstance().getReference();
         likebutton = view.findViewById(R.id.heartImageOff);
 
- //      pictureTimestamp = getArguments().getLong("timestamp");
+        //      pictureTimestamp = getArguments().getLong("timestamp");
 
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
         addToFollowingList();
         addMyPosts();
-
 
 
         return view;
@@ -130,7 +128,7 @@ public class HomeFragment extends Fragment {
         myRef.child("likes").child(imageId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), dataSnapshot.getKey() + " liked this image", Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.getKey().equals(new StringManipulation().removeSpecialChar(user.getEmail()))) {
                     p.setLiked(true);
                 }
@@ -271,8 +269,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
 
 
 }

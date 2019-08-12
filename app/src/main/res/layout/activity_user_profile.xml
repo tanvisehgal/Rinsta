@@ -87,7 +87,7 @@
 
         <Button
             android:id="@+id/userProfileFollowButton"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="Follow"
             android:maxHeight="15dp"

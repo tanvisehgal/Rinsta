@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ImageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         postButton = findViewById(R.id.postButton);
         postButton.bringToFront();
@@ -67,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
        if (timeStamp != 0) {
            postButton.setText("POST(5)");
            count = 5;
-           Toast.makeText(this, "Time to take a picture!", Toast.LENGTH_SHORT).show();
+           Toast.makeText(this, "Time to take a picture!", Toast.LENGTH_LONG).show();
            Timer timer = new Timer();
 
 
@@ -80,10 +79,10 @@ public class HomeActivity extends AppCompatActivity {
                    }
                    else {
                        count--;
-                       postButton.setText("POST(" + count + "s)");
+                       postButton.setText("POST(" + count + ")");
                    }
                }
-           }, 0, 1000);
+           }, 0, 60000);
        }
     }
 
@@ -93,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Long currTime = (new Date()).getTime();
-                if (currTime - timeStamp <= 5000) {
+                if (currTime - timeStamp <= 300000) {
                     Intent i = new Intent(getApplicationContext(), ImageActivity.class);
                     startActivity(i);
                 }

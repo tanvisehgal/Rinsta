@@ -20,6 +20,7 @@
             android:src="@drawable/blankprofile" />
 
         <Spinner
+            android:layout_marginTop="10dp"
             android:id="@+id/search"
             android:prompt="@string/find_users"
             android:layout_width="match_parent"
@@ -106,6 +107,12 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Sign Out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

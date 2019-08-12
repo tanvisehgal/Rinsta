@@ -100,6 +100,7 @@ public class CustomPostsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
+   //     final int index = allPosts.size() - 1 - i;
         final Post currPost = allPosts.get(i).getPost();
         Log.d("email", currPost.getEmail() + " " + new StringManipulation()
                 .extractUsername(currPost.getEmail()));
@@ -166,6 +167,7 @@ public class CustomPostsAdapter extends BaseAdapter {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         String nameliked = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
                         likesList.add(nameliked);
+                        notifyDataSetChanged();
                     }
 
                     @Override
@@ -175,7 +177,9 @@ public class CustomPostsAdapter extends BaseAdapter {
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                        String nameUnliked = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
+                        likesList.remove(nameUnliked);
+                        notifyDataSetChanged();
                     }
 
                     @Override
@@ -195,8 +199,8 @@ public class CustomPostsAdapter extends BaseAdapter {
                 final String[] likesArray = likesList.toArray(new String[likesList.size()]);
                 new AlertDialog.Builder(context).setTitle("Likes").setItems(likesArray, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String userProfileUsername = likesArray[i] + "gmailcom";
+                    public void onClick(DialogInterface dialogInterface, int index) {
+                        String userProfileUsername = likesArray[index];
                         //UserProfileActivity userProfileActivity = new UserProfileActivity(userProfileUsername);
                         Intent intent = new Intent(context, UserProfileActivity.class);
                         intent.putExtra("userProfileUsername", userProfileUsername);

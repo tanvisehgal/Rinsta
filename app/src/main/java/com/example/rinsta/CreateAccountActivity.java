@@ -69,7 +69,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                                     setNewUserSettings();
                                     Intent i = new Intent(CreateAccountActivity.this,
-                                            HomeActivity.class);
+                                            MainActivity.class);
                                     startActivity(i);
                                 }else{
                                     Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
