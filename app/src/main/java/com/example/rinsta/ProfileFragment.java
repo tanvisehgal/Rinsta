@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -34,6 +38,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -77,6 +83,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase fbDatabase;
     private DatabaseReference myRef;
     private FirebaseUser user;
+    private StorageReference storageRootRef;
 
     private ArrayList<String> allOtherUsers = new ArrayList<>();
     ArrayAdapter<String> spinnerArrayAdapter;
@@ -98,6 +105,7 @@ public class ProfileFragment extends Fragment {
         followersCount = 0;
         followingCount = 0;
 
+        storageRootRef = FirebaseStorage.getInstance().getReference();
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -173,6 +181,30 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void setImage(final Post post) {
+        // Log.d("bitmap", imageid);
+        final StorageReference storageRef = storageRootRef.child("Images").child(post.getImageid());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Log.d("bitmap", "success");
+                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post, bm);
+                likeImage(postsAdapterItem);
+                allMyPosts.add(postsAdapterItem);
+                myAdapter.notifyDataSetChanged();
+                Log.d("bitmap", bm.toString());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("bitmap", "failure");
+                // Handle any errors
+            }
+        });
+    }
+
     // add my posts to my profile feed
     private void populateList() {
         myRef.child("post").orderByChild("uniqueIdentifier").equalTo(new StringManipulation()
@@ -180,10 +212,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post c = dataSnapshot.getValue(Post.class);
-                PostsAdapterItem pai = new PostsAdapterItem(c);
-                allMyPosts.add(pai);
-                likeImage(pai);
-                myAdapter.notifyDataSetChanged();
+                setImage(c);
             }
 
             @Override

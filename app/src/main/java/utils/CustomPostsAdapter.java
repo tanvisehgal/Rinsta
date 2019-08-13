@@ -117,21 +117,23 @@ public class CustomPostsAdapter extends BaseAdapter {
             viewHolder.likeButton.setImageResource(R.drawable.heart_off);
         }
 
-        final StorageReference myRef = storageReference.child("Images").child(currPost.getImageid());
+//        final StorageReference myRef = storageReference.child("Images").child(currPost.getImageid());
+//
+//        final long ONE_MEGABYTE = 1024 * 1024;
+//        myRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                viewHolder.post.setImageBitmap(bm);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle any errors
+//            }
+//        });
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        myRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                viewHolder.post.setImageBitmap(bm);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+       viewHolder.post.setImageBitmap(allPosts.get(i).getBitmap());
 
 
         viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +142,7 @@ public class CustomPostsAdapter extends BaseAdapter {
 
                 String imageId = new StringManipulation().removeJpgFromEnd(currPost.getImageid());
                 String username = new StringManipulation().removeSpecialChar(currUser.getEmail());
-
+                Log.d("posts", i + " i value " + imageId);
                 if (allPosts.get(i).isLiked()) {
                     dbRef.child("likes").child(imageId).removeValue();
                     int newLikes = currPost.getNumLikes() - 1;
@@ -192,6 +194,7 @@ public class CustomPostsAdapter extends BaseAdapter {
 
                     }
                 });
+
 
         viewHolder.likes.setOnClickListener(new View.OnClickListener() {
             @Override

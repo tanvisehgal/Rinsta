@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:clickable="true"
             android:text="username1"
             android:textColor="#166DAF"
             android:textStyle="bold" />
@@ -92,7 +91,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/caption"
             android:layout_toEndOf="@+id/heartImageOff"
-            android:clickable="true"
+            android:clickable="false"
             android:gravity="center_vertical"
             android:text="100 likes"
             android:textAlignment="gravity"
@@ -116,7 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="4dp"
-            android:clickable="true"
             android:text="username1"
             android:textColor="#166DAF"
             android:textStyle="bold" />
@@ -135,7 +133,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/linearLayoutCaption"
         android:layout_marginStart="30dp"
-        android:clickable="true"
+        android:clickable="false"
         android:gravity="center_vertical" />
 
 

@@ -3,6 +3,8 @@ package com.example.rinsta;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -30,6 +32,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -110,7 +114,8 @@ public class HomeFragment extends Fragment {
         myAdapter = new CustomPostsAdapter(getActivity(), allPosts);
         myListView.setAdapter(myAdapter);
         addToFollowingList();
-        addMyPosts();
+        addPosts(userIdentifier);
+
 
 
         return view;
@@ -163,6 +168,7 @@ public class HomeFragment extends Fragment {
 
     // go through the people I'm following and add their posts
     private void addToFollowingList() {
+
         Query myFollowing = myRef.child("following").child(userIdentifier);
         myFollowing.addChildEventListener(new ChildEventListener() {
             @Override
@@ -196,42 +202,33 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // add my posts to the home feed
-    private void addMyPosts() {
-        myRef.child("post").orderByChild("uniqueIdentifier").equalTo(userIdentifier).addChildEventListener(new ChildEventListener() {
+
+    private void setImage(final Post post) {
+       // Log.d("bitmap", imageid);
+        final StorageReference storageRef = storageRootRef.child("Images").child(post.getImageid());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Post post = dataSnapshot.getValue(Post.class);
-                Log.d("following", "my post caption: " + post.getCaption());
-                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post);
-                allPosts.add(postsAdapterItem);
+            public void onSuccess(byte[] bytes) {
+                Log.d("bitmap", "success");
+                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post, bm);
                 likeImage(postsAdapterItem);
+                allPosts.add(postsAdapterItem);
                 myAdapter.notifyDataSetChanged();
+                Log.d("bitmap", bm.toString());
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("followers", "on added called " + dataSnapshot.getValue());
-                myAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("bitmap", "failure");
+                // Handle any errors
             }
         });
     }
+
+
+
 
     // add other users post to home feed
     private void addPosts(String userid) {
@@ -240,16 +237,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
-                PostsAdapterItem postsAdapterItem = new PostsAdapterItem(post);
-                allPosts.add(postsAdapterItem);
-                likeImage(postsAdapterItem);
-                myAdapter.notifyDataSetChanged();
+               setImage(post);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = dataSnapshot.getValue(Post.class);
-
                 myAdapter.notifyDataSetChanged();
             }
 
