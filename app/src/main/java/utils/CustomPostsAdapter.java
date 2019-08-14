@@ -133,7 +133,7 @@ public class CustomPostsAdapter extends BaseAdapter {
 //            }
 //        });
 
-       viewHolder.post.setImageBitmap(allPosts.get(i).getBitmap());
+        viewHolder.post.setImageBitmap(allPosts.get(i).getBitmap());
 
 
         viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +169,7 @@ public class CustomPostsAdapter extends BaseAdapter {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         String nameliked = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
                         likesList.add(nameliked);
-                        notifyDataSetChanged();
+                    //    notifyDataSetChanged();
                     }
 
                     @Override
@@ -181,7 +181,7 @@ public class CustomPostsAdapter extends BaseAdapter {
                     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                         String nameUnliked = new StringManipulation().formatIdentifier(dataSnapshot.getKey());
                         likesList.remove(nameUnliked);
-                        notifyDataSetChanged();
+                 //       notifyDataSetChanged();
                     }
 
                     @Override
